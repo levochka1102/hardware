@@ -27,11 +27,11 @@ function getMask($hardware_list, $type_name)
 // function build regular expression
 function buildRegEx($type_mask_matcher, $mask)
 {
-    $regEx = "/";
+    $regEx = "/^";
     for($index = 0; $index <= strlen($mask) - 1; $index++){
         $regEx .= $type_mask_matcher[$mask[$index]];
     }
-    return ($regEx . "/");
+    return ($regEx . "$/");
 }
 
 // this function return list of valid numbers
@@ -67,6 +67,7 @@ foreach ($validNumbers as $validNumber) {
         echo ($validNumber . " уже существует<br>");
     }
     else {
+        $shieldedValidNumber = mysqli_real_escape_string($validNumber);
         mysqli_query($db, "INSERT INTO `hardware_serial` (`hardware_type_id`, `serial_number`) VALUES ('$id', '$validNumber')");
     }
 }
@@ -78,3 +79,4 @@ function isExist($validNumber, $existNumbers) {
     }
     return false;
 }
+?>
