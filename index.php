@@ -1,5 +1,5 @@
 <?php
-    require_once 'getHardwareList.php';
+    require_once 'Hardware.php';
 ?>
 
 
@@ -12,7 +12,7 @@
     <title>Hardware</title>
 </head>
 <body>
-    <form method="post" action="create.php">
+    <form method="post" action="control.php">
         <textarea name="serial_number"></textarea>
         <select class="select"name="type_name"></select>
 
@@ -20,16 +20,18 @@
     </form>
 
     <script>
+
         <?php
-        foreach ($hardware_list as $type_name => $type_mask) {
+        foreach (Hardware::getHardwareList() as $key => $value) {
         ?>
         var select = document.querySelector('select');
         var option = document.createElement('option');
-        option.textContent = '<?= $type_name ?>';
+        option.textContent = '<?= $key ?>';
         select.appendChild(option);
         <?php
         }
         ?>
+
     </script>
 </body>
 </html>
